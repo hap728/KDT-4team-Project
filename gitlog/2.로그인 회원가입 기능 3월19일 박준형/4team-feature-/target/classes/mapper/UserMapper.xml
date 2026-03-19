@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mvcgithublogin.repository.UserRepository">
+
+    <insert id="save" parameterType="com.project.mvcgithublogin.domain.User">
+        INSERT INTO USERS (USER_ID, ID, PW, NICKNAME, LOGIN_TYPE, AUTH_KEY)
+        VALUES (SEQ_USERS.NEXTVAL, #{id}, #{pw}, #{nickname}, #{loginType}, #{authKey})
+    </insert>
+
+</mapper>

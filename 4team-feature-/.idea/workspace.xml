@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d24004e2-fe64-4948-a84c-fd2d8f0b0d7f" name="변경" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/assets/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/jobs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/matching.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/controller/JoinController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/dto/CreateUserRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/dto/LoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/mapper/UserMapper.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/java/com/project/mvcgithublogin/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/resources/mapper/UserMapper.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/resources/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/resources/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/src/main/resources/templates/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/dto/CreateUserRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/dto/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/com/project/mvcgithublogin/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/mapper/UserMapper.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4team/target/classes/templates/signup.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Diemos1368&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hap728/4team.git&quot;,
+    &quot;accountId&quot;: &quot;2a12d8ef-feed-42fa-8a5f-486804775f08&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="3BCh4zQsCjsKGIxpf8nhWCWRo0k" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.App.executor": "Run",
+    "git-widget-placeholder": "feature/김홍현",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/smhrd/Desktop/kim/4team",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="d24004e2-fe64-4948-a84c-fd2d8f0b0d7f" name="변경" comment="" />
+      <created>1773998773064</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773998773064</updated>
+      <workItem from="1773998774773" duration="279000" />
+      <workItem from="1773999067832" duration="68000" />
+      <workItem from="1774224205320" duration="769000" />
+    </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1773999087911</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1773999087911</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+  </component>
+</project>

@@ -1,0 +1,517 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendBridge | 매칭 분석</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="matching">
+  <header class="site-header">
+    <div class="topbar">
+      <div class="left-group">
+        <a class="brand" href="index.html">TrendBridge</a>
+        <nav class="nav">
+          <a href="index.html" data-page="jobs">공고 보기</a>
+          <a href="jobs.html" data-page="dashboard">트렌드 차트</a>
+          <a href="matching.html" data-page="matching">매칭 분석</a>
+          
+        </nav>
+      </div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">다크 모드</button>
+      <div id="authArea" class="auth-area"><a class="auth-btn secondary" href="login.html">로그인</a><a class="auth-btn" href="signup.html">회원가입</a></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>매칭 분석</h1>
+      <p>목표 공고를 선택하면 해당 공고 요구 스택 기준으로 매칭 지수와 부족 역량을 계산합니다.</p>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>목표 공고 기반 매칭</h2>
+        <div class="row" style="margin-bottom:10px">
+         
+          <button id="openJobSearch" type="button" class="secondary">공고 검색</button>
+        </div>
+        <p id="jobMeta" class="muted">직무를 선택한 뒤 공고 검색을 눌러 상세 검색을 진행하세요.</p>
+        <div id="selectedJob" class="pill" style="margin-top:8px">선택된 공고 없음</div>
+
+        <div class="row" style="margin-top:8px">
+          <input id="stackInput" type="text" placeholder="보유 스택 입력" />
+          <button id="addStack" type="button" class="secondary">추가</button>
+          <button id="calcMatch" type="button">지수 계산</button>
+        </div>
+
+        <h3 style="margin-top:14px">내 보유 스택</h3>
+        <div id="myStacks" class="taglist"></div>
+
+        <h3 style="margin-top:14px">공고 기준 갭 분석</h3>
+        <p class="muted" style="margin:0 0 6px">보유</p>
+        <div id="haveStacks" class="taglist"></div>
+        <p class="muted" style="margin:10px 0 6px">부족</p>
+        <div id="missingStacks" class="taglist"></div>
+      </article>
+
+      <article class="card">
+        <h3>결과</h3>
+        <div id="matchScore" class="score">--%</div>
+        <p id="matchSuggest" class="muted">목표 공고를 선택하고 지수 계산을 실행하세요.</p>
+
+        <h3 style="margin-top:14px">점수 개선 시뮬레이션</h3>
+        <div class="row">
+          <select id="boostStack"></select>
+          <button id="simulateBtn" type="button" class="secondary">예상 점수 보기</button>
+        </div>
+        <p id="simulateResult" class="muted" style="margin-top:8px">부족 스택이 있을 때 시뮬레이션이 가능합니다.</p>
+      </article>
+    </section>
+  </main>
+  <div class="modal" id="jobSearchModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="jobSearchTitle">
+      <div class="modal-header">
+        <h2 id="jobSearchTitle">공고 상세 검색</h2>
+        <button id="closeJobSearch" type="button" class="secondary">닫기</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid two job-search-grid">
+          <div class="card">
+            <h3>검색 조건</h3>
+            <div class="list" style="margin-top:10px">
+              <div class="search-select" data-select="keyword">
+                <input id="jobKeyword" class="search-select-input" type="text" placeholder="키워드 (선택/직접 입력)" autocomplete="off" />
+                <div class="search-select-list">
+                  <button type="button" class="search-option" data-value="백엔드">백엔드</button>
+                  <button type="button" class="search-option" data-value="프론트엔드">프론트엔드</button>
+                  <button type="button" class="search-option" data-value="AI">AI</button>
+                  <button type="button" class="search-option" data-value="인프라">인프라</button>
+                  <button type="button" class="search-option" data-value="DevOps">DevOps</button>
+                  <button type="button" class="search-option" data-value="데이터">데이터</button>
+                </div>
+              </div>
+              <div class="search-select" data-select="stack">
+                <input id="jobStack" class="search-select-input" type="text" placeholder="기술 스택 (선택/직접 입력)" autocomplete="off" />
+                <div class="search-select-list">
+                  <button type="button" class="search-option" data-value="Java">Java</button>
+                  <button type="button" class="search-option" data-value="Spring">Spring</button>
+                  <button type="button" class="search-option" data-value="React">React</button>
+                  <button type="button" class="search-option" data-value="TypeScript">TypeScript</button>
+                  <button type="button" class="search-option" data-value="Python">Python</button>
+                  <button type="button" class="search-option" data-value="AWS">AWS</button>
+                  <button type="button" class="search-option" data-value="Docker">Docker</button>
+                  <button type="button" class="search-option" data-value="Kubernetes">Kubernetes</button>
+                  <button type="button" class="search-option" data-value="Kafka">Kafka</button>
+                </div>
+              </div>
+              <select id="jobLocation">
+                <option value="">지역 전체</option>
+                <option value="서울">서울</option>
+                <option value="광주">광주</option>
+              </select>
+              <div class="search-select" data-select="company">
+                <input id="jobCompany" class="search-select-input" type="text" placeholder="회사명 (선택/직접 입력)" autocomplete="off" />
+                <div class="search-select-list">
+                  <button type="button" class="search-option" data-value="트렌드브릿지">트렌드브릿지</button>
+                  <button type="button" class="search-option" data-value="브릿지랩">브릿지랩</button>
+                  <button type="button" class="search-option" data-value="데이터웨이브">데이터웨이브</button>
+                  <button type="button" class="search-option" data-value="클라우드코어">클라우드코어</button>
+                  <button type="button" class="search-option" data-value="네오시그널">네오시그널</button>
+                  <button type="button" class="search-option" data-value="스카이포지">스카이포지</button>
+                  <button type="button" class="search-option" data-value="라이트픽">라이트픽</button>
+                  <button type="button" class="search-option" data-value="인텔리젠트랩">인텔리젠트랩</button>
+                  <button type="button" class="search-option" data-value="옵스메이트">옵스메이트</button>
+                  <button type="button" class="search-option" data-value="스택브릿지">스택브릿지</button>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <button id="jobSearchBtn" type="button">검색</button>
+              <button id="jobResetBtn" type="button" class="secondary">초기화</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>검색 결과</h3>
+            <div class="list job-search-list" id="jobSearchResult" style="margin-top:10px"></div>
+            <div class="compare-box">
+              <div class="compare-header">
+                <strong>공고 비교 (최대 2개)</strong>
+                <button id="compareReset" type="button" class="secondary">비우기</button>
+              </div>
+              <div class="compare-slots">
+                <div class="compare-slot" data-slot="0">비교할 공고를 선택하세요.</div>
+                <div class="compare-slot" data-slot="1">비교할 공고를 선택하세요.</div>
+              </div>
+              <div id="compareDetail" class="compare-detail"></div>
+            </div>
+            <div class="row" style="margin-top:12px; justify-content: flex-end;">
+              <button id="jobPrev" type="button" class="secondary">이전</button>
+              <button id="jobNext" type="button">다음</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/auth.js" defer></script>
+  <script>
+    const openBtn = document.getElementById("openJobSearch");
+    const closeBtn = document.getElementById("closeJobSearch");
+    const modal = document.getElementById("jobSearchModal");
+    const searchBtn = document.getElementById("jobSearchBtn");
+    const resetBtn = document.getElementById("jobResetBtn");
+    const keywordInput = document.getElementById("jobKeyword");
+    const companyInput = document.getElementById("jobCompany");
+    const locationInput = document.getElementById("jobLocation");
+    const stackInput = document.getElementById("jobStack");
+    const roleSelect = document.getElementById("role");
+    const prevBtn = document.getElementById("jobPrev");
+    const nextBtn = document.getElementById("jobNext");
+    const compareResetBtn = document.getElementById("compareReset");
+    const compareSlots = Array.from(document.querySelectorAll(".compare-slot"));
+    const compareDetail = document.getElementById("compareDetail");
+    const searchSelects = Array.from(document.querySelectorAll(".search-select"));
+    const jobResultEl = document.getElementById("jobSearchResult");
+    const selectedJob = document.getElementById("selectedJob");
+    const pageSize = 5;
+    let currentPage = 1;
+    const compareItems = [];
+    const jobs = [
+      { category: "backend", title: "백엔드 개발자 (Java/Spring)", company: "트렌드브릿지", location: "서울 강남구", stack: "Java, Spring Boot, MySQL" },
+      { category: "backend", title: "백엔드 개발자 (Kotlin)", company: "스카이포지", location: "서울 송파구", stack: "Kotlin, Spring, Redis" },
+      { category: "backend", title: "서버 엔지니어", company: "옵스메이트", location: "서울 영등포구", stack: "Node.js, PostgreSQL, Redis" },
+      { category: "backend", title: "플랫폼 백엔드", company: "네오시그널", location: "부산 해운대구", stack: "Java, Kafka, Redis" },
+      { category: "backend", title: "API 백엔드", company: "브릿지랩", location: "서울 마포구", stack: "Spring, JPA, MySQL" },
+
+      { category: "frontend", title: "프론트엔드 개발자 (React)", company: "브릿지랩", location: "서울 마포구", stack: "React, TypeScript, Vite" },
+      { category: "frontend", title: "프론트엔드 개발자 (Vue)", company: "라이트픽", location: "대전 유성구", stack: "Vue, Pinia, Vite" },
+      { category: "frontend", title: "UI 엔지니어", company: "스택브릿지", location: "서울 영등포구", stack: "React, Storybook, CSS" },
+      { category: "frontend", title: "웹 퍼블리셔", company: "클라우드코어", location: "서울 중구", stack: "HTML, CSS, JavaScript" },
+      { category: "frontend", title: "프론트엔드 개발자", company: "데이터웨이브", location: "경기 성남시", stack: "Next.js, TypeScript, Tailwind" },
+
+      { category: "mobile", title: "모바일 앱 개발자 (Android)", company: "모바일브릿지", location: "서울 강서구", stack: "Kotlin, Android, Firebase" },
+      { category: "mobile", title: "모바일 앱 개발자 (iOS)", company: "라이트픽", location: "대전 유성구", stack: "Swift, iOS, Combine" },
+      { category: "mobile", title: "크로스플랫폼 개발자", company: "네오시그널", location: "부산 해운대구", stack: "Flutter, Dart, Firebase" },
+      { category: "mobile", title: "리액트 네이티브 개발자", company: "트렌드브릿지", location: "서울 강남구", stack: "React Native, TypeScript" },
+      { category: "mobile", title: "모바일 UI 개발자", company: "브릿지랩", location: "서울 마포구", stack: "SwiftUI, Kotlin" },
+
+      { category: "ai", title: "AI 엔지니어", company: "인텔리젠트랩", location: "서울 서초구", stack: "Python, PyTorch, MLflow" },
+      { category: "ai", title: "데이터 엔지니어", company: "데이터웨이브", location: "경기 성남시", stack: "Spark, Kafka, PostgreSQL" },
+      { category: "ai", title: "머신러닝 엔지니어", company: "스택브릿지", location: "서울 영등포구", stack: "Python, TensorFlow, Airflow" },
+      { category: "ai", title: "NLP 연구원", company: "클라우드코어", location: "서울 중구", stack: "Python, Transformers, GPU" },
+      { category: "ai", title: "데이터 사이언티스트", company: "브릿지랩", location: "서울 마포구", stack: "Python, Pandas, SQL" },
+
+      { category: "infra", title: "클라우드 인프라 엔지니어", company: "클라우드코어", location: "서울 중구", stack: "AWS, Terraform, Docker" },
+      { category: "infra", title: "DevOps 엔지니어", company: "옵스메이트", location: "인천 연수구", stack: "Jenkins, Docker, AWS" },
+      { category: "infra", title: "SRE 엔지니어", company: "네오시그널", location: "부산 해운대구", stack: "Kubernetes, Prometheus, Grafana" },
+      { category: "infra", title: "보안 엔지니어", company: "트렌드브릿지", location: "서울 강남구", stack: "WAF, SIEM, Linux" },
+      { category: "infra", title: "클라우드 운영", company: "스카이포지", location: "서울 송파구", stack: "AWS, Linux, Ansible" },
+    ];
+
+    function textIncludes(value, query) {
+      if (!query) return true;
+      return (value || "").toLowerCase().includes(query.toLowerCase());
+    }
+
+    function renderFilter(resetPage = true) {
+      const keyword = keywordInput?.value.trim() || "";
+      const company = companyInput?.value.trim() || "";
+      const location = locationInput?.value.trim() || "";
+      const stack = stackInput?.value.trim() || "";
+      const filtered = jobs.filter((job) => {
+        const titleOk = textIncludes(job.title, keyword);
+        const companyOk = textIncludes(job.company, company);
+        const locationOk = textIncludes(job.location, location);
+        const stackOk = textIncludes(job.stack, stack);
+        return titleOk && companyOk && locationOk && stackOk;
+      });
+      if (resetPage) currentPage = 1;
+      renderPage(filtered);
+    }
+
+    function renderPage(filteredItems) {
+      const total = filteredItems.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      currentPage = Math.min(currentPage, totalPages);
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      const pageItems = filteredItems.slice(start, end);
+
+      if (jobResultEl) {
+        jobResultEl.innerHTML = pageItems
+          .map(
+            (job) => `
+              <div class="item job-card job-item" data-title="${job.title}" data-company="${job.company}" data-location="${job.location}" data-stack="${job.stack}">
+                <h4>${job.title}</h4>
+                <p>회사: ${job.company}</p>
+                <p>지역: ${job.location}</p>
+                <p>스택: ${job.stack}</p>
+                <div class="job-card-actions">
+                  <button type="button" class="compare-btn secondary">비교</button>
+                </div>
+              </div>
+            `
+          )
+          .join("");
+
+        const renderedItems = Array.from(jobResultEl.querySelectorAll(".job-item"));
+        renderedItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const title = item.dataset.title || "선택된 공고";
+            const company = item.dataset.company || "";
+            const location = item.dataset.location || "";
+            selectedJob.textContent = `${title} (${company} · ${location})`;
+            closeModal();
+          });
+
+          const compareBtn = item.querySelector(".compare-btn");
+          compareBtn?.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const job = {
+              title: item.dataset.title || "",
+              company: item.dataset.company || "",
+              location: item.dataset.location || "",
+              stack: item.dataset.stack || "",
+            };
+            addCompare(job);
+          });
+        });
+      }
+
+      if (prevBtn) prevBtn.disabled = currentPage <= 1;
+      if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    }
+
+    const stackOptionsByRole = {
+      backend: ["Java", "Spring", "MySQL", "Redis", "Kafka"],
+      frontend: ["React", "Vue", "TypeScript", "Vite"],
+      mobile: ["Kotlin", "Swift", "Flutter", "React Native"],
+      ai: ["Python", "PyTorch", "TensorFlow", "MLflow"],
+      infra: ["AWS", "Docker", "Kubernetes", "Terraform"],
+    };
+
+    const roleAlias = {
+      backend: "backend",
+      백엔드: "backend",
+      frontend: "frontend",
+      프론트: "frontend",
+      프론트엔드: "frontend",
+      front: "frontend",
+      mobile: "mobile",
+      모바일: "mobile",
+      app: "mobile",
+      ai: "ai",
+      인공지능: "ai",
+      infra: "infra",
+      인프라: "infra",
+    };
+
+    const stackListEl = document.querySelector('[data-select="stack"] .search-select-list');
+
+    const normalizeRoleKey = (value) => {
+      const v = (value || "").trim();
+      if (!v) return "";
+      const lower = v.toLowerCase();
+      if (roleAlias[v]) return roleAlias[v];
+      if (roleAlias[lower]) return roleAlias[lower];
+      if (stackOptionsByRole[v]) return v;
+      if (stackOptionsByRole[lower]) return lower;
+      return "";
+    };
+
+    const resolveRoleKey = (roleValue) => {
+      const fromKeyword = normalizeRoleKey(keywordInput?.value);
+      if (fromKeyword && stackOptionsByRole[fromKeyword]) return fromKeyword;
+
+      const fromSelect = normalizeRoleKey(roleValue);
+      if (fromSelect && stackOptionsByRole[fromSelect]) return fromSelect;
+
+      const selectedText = roleSelect?.selectedOptions?.[0]?.textContent?.trim();
+      const fromText = normalizeRoleKey(selectedText);
+      if (fromText && stackOptionsByRole[fromText]) return fromText;
+
+      return "";
+    };
+
+    const renderStackOptions = (roleValue) => {
+      const stackListEl = document.querySelector('[data-select="stack"] .search-select-list');
+      if (!stackListEl) return;
+      const roleKey = resolveRoleKey(roleValue);
+      const list = stackOptionsByRole[roleKey] || [
+        "Java",
+        "Spring",
+        "React",
+        "TypeScript",
+        "Python",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "Kafka",
+      ];
+
+      stackListEl.innerHTML = list
+        .map((item) => `<button type="button" class="search-option" data-value="${item}">${item}</button>`)
+        .join("");
+    };
+
+    const openModal = () => {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      if (roleSelect && !roleSelect.value && roleSelect.options.length > 0) {
+        roleSelect.value = roleSelect.options[0].value;
+      }
+      renderStackOptions(roleSelect?.value);
+      renderFilter();
+    };
+
+    const closeModal = () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    };
+
+    openBtn?.addEventListener("click", openModal);
+    closeBtn?.addEventListener("click", closeModal);
+    modal?.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    searchBtn?.addEventListener("click", () => renderFilter(true));
+    resetBtn?.addEventListener("click", () => {
+      [keywordInput, companyInput, locationInput, stackInput].forEach((el) => {
+        if (el) el.value = "";
+      });
+      renderFilter(true);
+    });
+
+    const filterOptions = (selectEl, query) => {
+      const options = selectEl.querySelectorAll(".search-option");
+      options.forEach((option) => {
+        const value = option.dataset.value || option.textContent || "";
+        option.style.display = textIncludes(value, query) ? "block" : "none";
+      });
+    };
+
+    searchSelects.forEach((selectEl) => {
+      const input = selectEl.querySelector(".search-select-input");
+      const list = selectEl.querySelector(".search-select-list");
+      if (!input || !list) return;
+
+      const openSelect = () => {
+        selectEl.classList.add("open");
+        filterOptions(selectEl, input.value.trim());
+      };
+
+      input.addEventListener("focus", openSelect);
+      input.addEventListener("click", (event) => {
+        event.stopPropagation();
+        openSelect();
+      });
+
+      input.addEventListener("input", () => {
+        filterOptions(selectEl, input.value.trim());
+        renderFilter(true);
+      });
+
+      list.addEventListener("mousedown", (event) => {
+        const target = event.target.closest(".search-option");
+        if (!target) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const value = target.dataset.value || target.textContent || "";
+        input.value = value.trim();
+        selectEl.classList.remove("open");
+        renderFilter(true);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      searchSelects.forEach((selectEl) => {
+        if (!selectEl.contains(event.target)) {
+          selectEl.classList.remove("open");
+        }
+      });
+    });
+
+    keywordInput?.addEventListener("input", () => {
+      renderStackOptions(roleSelect?.value);
+      renderFilter(true);
+    });
+    companyInput?.addEventListener("input", () => renderFilter(true));
+    locationInput?.addEventListener("input", () => renderFilter(true));
+    stackInput?.addEventListener("input", () => renderFilter(true));
+    roleSelect?.addEventListener("change", () => {
+      renderStackOptions(roleSelect.value);
+      if (stackInput) stackInput.value = "";
+      renderFilter(true);
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      if (currentPage <= 1) return;
+      currentPage -= 1;
+      renderFilter(false);
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      currentPage += 1;
+      renderFilter(false);
+    });
+
+    function addCompare(job) {
+      const exists = compareItems.some((item) => item.title === job.title && item.company === job.company);
+      if (exists) return;
+      if (compareItems.length >= 2) {
+        compareItems.shift();
+      }
+      compareItems.push(job);
+      renderCompare();
+    }
+
+    function renderCompare() {
+      compareSlots.forEach((slot, index) => {
+        const item = compareItems[index];
+        if (!item) {
+          slot.textContent = "비교할 공고를 선택하세요.";
+          return;
+        }
+        slot.textContent = `${item.title} (${item.company})`;
+      });
+
+      if (!compareDetail) return;
+      if (compareItems.length < 2) {
+        compareDetail.innerHTML = "";
+        return;
+      }
+
+      compareDetail.innerHTML = compareItems
+        .map(
+          (job) => `
+            <div class="compare-card">
+              <h4>${job.title}</h4>
+              <p>회사: ${job.company}</p>
+              <p>지역: ${job.location}</p>
+              <p>스택: ${job.stack}</p>
+            </div>
+          `
+        )
+        .join("");
+    }
+
+    compareResetBtn?.addEventListener("click", () => {
+      compareItems.splice(0, compareItems.length);
+      renderCompare();
+    });
+
+    renderFilter(true);
+  </script>
+</body>
+</html>
+
+
+
+
+

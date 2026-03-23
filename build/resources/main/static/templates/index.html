@@ -1,0 +1,132 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendBridge | 공고 보기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="jobs">
+  <header class="site-header">
+    <div class="topbar">
+      <div class="left-group">
+        <a class="brand" href="index.html">TrendBridge</a>
+        <nav class="nav">
+          <a href="index.html" data-page="jobs">공고 보기</a>
+          <a href="jobs.html" data-page="dashboard">트렌드 차트</a>
+          <a href="matching.html" data-page="matching">매칭 분석</a>
+          
+        </nav>
+      </div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">다크 모드</button>
+      <div id="authArea" class="auth-area"><a class="auth-btn secondary" href="login.html">로그인</a><a class="auth-btn" href="signup.html">회원가입</a></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>공고 보기</h1>
+      <p></p>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <!-- <h2>공고</h2> -->
+      <div class="row" style="margin-bottom:12px">
+        <!-- <input id="stackFilter" type="text" placeholder="예: React, Kafka" /> -->
+        <select id="companyFilter">
+          <option value="backend">백엔드</option>
+          <option value="frontend">프론트엔드</option>
+          <option value="mobile">모바일</option>
+          <option value="ai">인공지능/데이터</option>
+          <option value="infra">인프라/보안</option>
+        </select>
+      </div>
+      <div id="jobList" class="list"></div>
+      
+    </section>
+  </main>
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/auth.js" defer></script>
+  <script>
+    const jobs = [
+      { category: "backend", title: "백엔드 개발자 (Java/Spring)", company: "트렌드브릿지", location: "서울 강남구", stack: "Java, Spring Boot, MySQL" },
+      { category: "backend", title: "백엔드 개발자 (Kotlin)", company: "스카이포지", location: "서울 송파구", stack: "Kotlin, Spring, Redis" },
+      { category: "backend", title: "서버 엔지니어", company: "옵스메이트", location: "서울 영등포구", stack: "Node.js, PostgreSQL, Redis" },
+      { category: "backend", title: "플랫폼 백엔드", company: "네오시그널", location: "부산 해운대구", stack: "Java, Kafka, Redis" },
+      { category: "backend", title: "API 백엔드", company: "브릿지랩", location: "서울 마포구", stack: "Spring, JPA, MySQL" },
+
+      { category: "frontend", title: "프론트엔드 개발자 (React)", company: "브릿지랩", location: "서울 마포구", stack: "React, TypeScript, Vite" },
+      { category: "frontend", title: "프론트엔드 개발자 (Vue)", company: "라이트픽", location: "대전 유성구", stack: "Vue, Pinia, Vite" },
+      { category: "frontend", title: "UI 엔지니어", company: "스택브릿지", location: "서울 영등포구", stack: "React, Storybook, CSS" },
+      { category: "frontend", title: "웹 퍼블리셔", company: "클라우드코어", location: "서울 중구", stack: "HTML, CSS, JavaScript" },
+      { category: "frontend", title: "프론트엔드 개발자", company: "데이터웨이브", location: "경기 성남시", stack: "Next.js, TypeScript, Tailwind" },
+
+      { category: "mobile", title: "모바일 앱 개발자 (Android)", company: "모바일브릿지", location: "서울 강서구", stack: "Kotlin, Android, Firebase" },
+      { category: "mobile", title: "모바일 앱 개발자 (iOS)", company: "라이트픽", location: "대전 유성구", stack: "Swift, iOS, Combine" },
+      { category: "mobile", title: "크로스플랫폼 개발자", company: "네오시그널", location: "부산 해운대구", stack: "Flutter, Dart, Firebase" },
+      { category: "mobile", title: "리액트 네이티브 개발자", company: "트렌드브릿지", location: "서울 강남구", stack: "React Native, TypeScript" },
+      { category: "mobile", title: "모바일 UI 개발자", company: "브릿지랩", location: "서울 마포구", stack: "SwiftUI, Kotlin" },
+
+      { category: "ai", title: "AI 엔지니어", company: "인텔리젠트랩", location: "서울 서초구", stack: "Python, PyTorch, MLflow" },
+      { category: "ai", title: "데이터 엔지니어", company: "데이터웨이브", location: "경기 성남시", stack: "Spark, Kafka, PostgreSQL" },
+      { category: "ai", title: "머신러닝 엔지니어", company: "스택브릿지", location: "서울 영등포구", stack: "Python, TensorFlow, Airflow" },
+      { category: "ai", title: "NLP 연구원", company: "클라우드코어", location: "서울 중구", stack: "Python, Transformers, GPU" },
+      { category: "ai", title: "데이터 사이언티스트", company: "브릿지랩", location: "서울 마포구", stack: "Python, Pandas, SQL" },
+
+      { category: "infra", title: "클라우드 인프라 엔지니어", company: "클라우드코어", location: "서울 중구", stack: "AWS, Terraform, Docker" },
+      { category: "infra", title: "DevOps 엔지니어", company: "옵스메이트", location: "인천 연수구", stack: "Jenkins, Docker, AWS" },
+      { category: "infra", title: "SRE 엔지니어", company: "네오시그널", location: "부산 해운대구", stack: "Kubernetes, Prometheus, Grafana" },
+      { category: "infra", title: "보안 엔지니어", company: "트렌드브릿지", location: "서울 강남구", stack: "WAF, SIEM, Linux" },
+      { category: "infra", title: "클라우드 운영", company: "스카이포지", location: "서울 송파구", stack: "AWS, Linux, Ansible" },
+    ];
+
+    const jobList = document.getElementById("jobList");
+    const stackFilter = document.getElementById("stackFilter");
+    const companyFilter = document.getElementById("companyFilter");
+
+    const renderJobs = () => {
+      const keyword = stackFilter?.value.trim().toLowerCase() || "";
+      const category = companyFilter?.value || "";
+      const filtered = jobs.filter((job) => {
+        const matchesCategory = category ? job.category === category : true;
+        const matchesKeyword = keyword
+          ? `${job.title} ${job.company} ${job.stack}`.toLowerCase().includes(keyword)
+          : true;
+        return matchesCategory && matchesKeyword;
+      });
+
+      jobList.innerHTML = filtered
+        .map(
+          (job) => `
+            <div class="item job-card">
+              <h4>${job.title}</h4>
+              <p>회사: ${job.company}</p>
+              <p>지역: ${job.location}</p>
+              <p>스택: ${job.stack}</p>
+            </div>
+          `
+        )
+        .join("");
+    };
+
+    stackFilter?.addEventListener("input", renderJobs);
+    companyFilter?.addEventListener("change", renderJobs);
+    renderJobs();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

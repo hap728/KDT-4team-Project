@@ -1,0 +1,114 @@
+.bookmark-page-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+}
+
+.bookmark-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bookmark-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #166c69;
+    background: #f4f4f4;
+    border: 1px solid #d8d2c6;
+}
+
+.empty-message {
+    padding: 24px;
+    text-align: center;
+    color: #666;
+}
+
+.bookmark-page-wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 22px 18px 40px;
+}
+
+.bookmark-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 34px 28px;
+    border-radius: 26px;
+    background: linear-gradient(90deg, #0f6d6d, #23936f);
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.bookmark-hero h1 {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.bookmark-hero p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bookmark-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #166c69;
+    background: #f4f4f4;
+    border: 1px solid #d8d2c6;
+    white-space: nowrap;
+}
+
+.bookmark-section {
+    background: #f5f1e8;
+    border: 1px solid #d8d0c3;
+    border-radius: 22px;
+    padding: 22px 18px 10px;
+}
+
+.bookmark-section h2 {
+    margin: 0 0 18px 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0b2340;
+}
+
+.bookmark-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty-message {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+}
+
+.bookmark-list {
+    gap: 14px;
+}
+
+.bookmark-section {
+    padding: 20px 18px 8px;
+}
+
+.bookmark-hero h1 {
+    font-size: 30px;
+}

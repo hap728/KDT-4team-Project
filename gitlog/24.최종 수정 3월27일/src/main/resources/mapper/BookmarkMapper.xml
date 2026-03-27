@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mvcgithublogin.repository.BookmarkRepository">
+
+    <insert id="insertBookmark">
+        INSERT INTO BOOKMARK (BOOKMARK_ID, USER_ID, POSTING_ID, BOOKMARKED_AT)
+        VALUES (SEQ_BOOKMARK.NEXTVAL, #{userId}, #{postingId}, SYSDATE)
+    </insert>
+
+    <delete id="deleteBookmark">
+        DELETE FROM BOOKMARK
+        WHERE USER_ID = #{userId}
+          AND POSTING_ID = #{postingId}
+    </delete>
+
+    <select id="existsBookmark" resultType="int">
+        SELECT COUNT(*)
+        FROM BOOKMARK
+        WHERE USER_ID = #{userId}
+          AND POSTING_ID = #{postingId}
+    </select>
+
+    <select id="findBookmarkedPostingIds" resultType="long">
+        SELECT POSTING_ID
+        FROM BOOKMARK
+        WHERE USER_ID = #{userId}
+        ORDER BY BOOKMARKED_AT DESC
+    </select>
+
+    <resultMap id="jobPostingResultMap" type="com.project.mvcgithublogin.domain.JobPosting">
+        <id property="postingId" column="POSTING_ID" jdbcType="BIGINT"/>
+        <result property="companyName" column="COMPANY_NAME" jdbcType="VARCHAR"/>
+        <result property="postedDate" column="POSTED_DATE" jdbcType="VARCHAR"/>
+        <result property="deadline" column="DEADLINE" jdbcType="VARCHAR"/>
+        <result property="region" column="REGION" jdbcType="VARCHAR"/>
+        <result property="employmentType" column="EMPLOYMENT_TYPE" jdbcType="VARCHAR"/>
+        <result property="education" column="EDUCATION" jdbcType="VARCHAR"/>
+        <result property="jobPosition" column="JOB_POSITION" jdbcType="VARCHAR"/>
+        <result property="techStack" column="TECH_STACK" jdbcType="VARCHAR"/>
+        <result property="salary" column="SALARY" jdbcType="VARCHAR"/>
+        <result property="postingUrl" column="POSTING_URL" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findBookmarkedJobs" resultMap="jobPostingResultMap">
+        SELECT
+            jp.POSTING_ID,
+            jp.COMPANY_NAME,
+            TO_CHAR(jp.POSTED_DATE, 'YYYY-MM-DD') AS POSTED_DATE,
+            TO_CHAR(jp.DEADLINE, 'YYYY-MM-DD') AS DEADLINE,
+            jp.REGION,
+            jp.EMPLOYMENT_TYPE,
+            jp.EDUCATION,
+            jp.JOB_POSITION,
+            jp.TECH_STACK,
+            jp.SALARY,
+            jp.POSTING_URL
+        FROM BOOKMARK b
+        JOIN JOB_POSTING jp
+          ON b.POSTING_ID = jp.POSTING_ID
+        WHERE b.USER_ID = #{userId}
+        ORDER BY b.BOOKMARKED_AT DESC
+    </select>
+
+</mapper>

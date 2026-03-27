@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+
+# Java / compiled output
+bin/
+out/
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS / misc
+Thumbs.db
+Desktop.ini
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
